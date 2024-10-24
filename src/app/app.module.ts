@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { AppComponent } from './app.component';
 import {MatTooltip} from '@angular/material/tooltip';
@@ -29,7 +30,8 @@ import {MatTooltip} from '@angular/material/tooltip';
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
-    MatTooltip
+    MatTooltip,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

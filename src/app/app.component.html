@@ -2,7 +2,7 @@
   <div class="app-input-section">
     <div class="app-input-wrapper">
       <input type="text" placeholder="What’s your idea?" class="app-input" [(ngModel)]="inputText" />
-      <button mat-button class="app-magic__button" (click)="onMagicClick()">
+      <button mat-button [ngClass]="{'app-magic__button-disabled': isLoading}" [disabled]="isLoading" class="app-magic__button" (click)="onMagicClick()">
         <span>Let Magic Happen</span>
         <mat-icon class="magic-icon">stars</mat-icon>
       </button>
@@ -11,12 +11,14 @@
     <mat-form-field class="app-chips-container">
       <mat-label>Choose Labels</mat-label>
       <mat-chip-grid #chipGrid aria-label="Label selection">
-        <mat-chip-row *ngFor="let label of selectedLabels" (removed)="removeLabel(label)">
-          {{ label }}
-          <button matChipRemove [attr.aria-label]="'Remove ' + label">
-            <mat-icon>cancel</mat-icon>
-          </button>
-        </mat-chip-row>
+        @for (label of selectedLabels; track $index) {
+          <mat-chip-row (removed)="removeLabel(label)">
+            {{ label }}
+            <button matChipRemove [attr.aria-label]="'Remove ' + label">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+        }
       </mat-chip-grid>
 
       <input
@@ -38,19 +40,23 @@
     </mat-form-field>
   </div>
 
-  <div class="app-result" *ngIf="sentimentResult || summaryResult">
-    <div class="app-result__sentiment" *ngIf="sentimentResult">
-      <div class="app-result__label">Sentiment: {{ sentimentResult?.label }}</div>
-      <div class="app-result__score-container" *ngIf="sentimentResult?.score !== undefined">
-        <div class="app-result__score">
-          Confidence: {{ sentimentResult.score | number: '.2-2' }}
+  @if (isLoading) {
+    <mat-spinner></mat-spinner>
+  } @else if (sentimentResult || summaryResult) {
+    <div class="app-result">
+      <div class="app-result__sentiment" *ngIf="sentimentResult">
+        <div class="app-result__label">Sentiment: {{ sentimentResult.label }}</div>
+        <div class="app-result__score-container" *ngIf="sentimentResult?.score !== undefined">
+          <div class="app-result__score">
+            Confidence: {{ sentimentResult.score | number: '0.8-8' }}
+          </div>
         </div>
       </div>
+  
+      <div class="app-result__summary" *ngIf="summaryResult">
+        <div class="app-result__title">Summary</div>
+        <div class="app-result__content">{{ summaryResult }}</div>
+      </div>
     </div>
-
-    <div class="app-result__summary" *ngIf="summaryResult">
-      <div class="app-result__title">Summary</div>
-      <div class="app-result__content">{{ summaryResult }}</div>
-    </div>
-  </div>
+  }
 </div>
