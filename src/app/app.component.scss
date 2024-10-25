@@ -3,6 +3,7 @@ $app-gradient: linear-gradient(135deg, #d5b3ff, #f5e1ff);
 $app-input-border-color: #ccc;
 $app-button-bg-color: #6c63ff;
 $app-button-hover-bg-color: #5b54e0;
+$app-button-disabled-bg-color: #ccc;
 
 .app-container {
   background: $app-gradient;
@@ -57,6 +58,11 @@ $app-button-hover-bg-color: #5b54e0;
           transform: translateY(-2px);
         }
       }
+
+      .app-magic__button-disabled {
+        background-color: $app-button-disabled-bg-color;
+        cursor: not-allowed;
+      }
     }
 
     .app-chips-container {
@@ -67,8 +73,8 @@ $app-button-hover-bg-color: #5b54e0;
 
   .app-result {
     display: flex;
-    max-width: 80%;
-    justify-content: space-between;
+    width: 80%;
+    justify-content: space-around;
 
     &__title {
       font-size: 1.5rem;
